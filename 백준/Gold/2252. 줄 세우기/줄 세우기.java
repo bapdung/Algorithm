@@ -34,7 +34,7 @@ public class Main {
 		int N = Integer.parseInt(st.nextToken());
 		int M = Integer.parseInt(st.nextToken());
 		
-		int[] edge = new int[N+1]; //진입차수 배열
+		int[] degree = new int[N+1]; //진입차수 배열
 		List<Integer>[] adjList = new ArrayList[N+1]; //인접리스트
 		
 		for(int i=1; i<N+1; i++) {
@@ -50,14 +50,13 @@ public class Main {
 			st = new StringTokenizer(br.readLine());
 			int from = Integer.parseInt(st.nextToken());
 			int to = Integer.parseInt(st.nextToken());
-			if(adjList[from].contains(to)) continue;
 			adjList[from].add(to);
-			edge[to]++;
+			degree[to]++;
 		}
 		
 		//진입차수가 0인 학생 큐에 offer
 		for(int i=1; i<N+1; i++) { 
-			if(edge[i] == 0) {
+			if(degree[i] == 0) {
 				q.offer(i);
 			}
 		}
@@ -68,8 +67,8 @@ public class Main {
 			sb.append(from + " ");
 			
 			for(int to : adjList[from]) { //앞학생과 연결된 학생들
-				edge[to]--; //이미 앞에 섰으니 앞 학생이랑 연결된 학생들의 진입차수 1씩 감소
-				if(edge[to] == 0) q.offer(to); //감소 후 진입차수가 0이라면 q에 offer
+				degree[to]--; //이미 앞에 섰으니 앞 학생이랑 연결된 학생들의 진입차수 1씩 감소
+				if(degree[to] == 0) q.offer(to); //감소 후 진입차수가 0이라면 q에 offer
 			}
 		}
 
