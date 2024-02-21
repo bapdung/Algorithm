@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 
 public class Main {
 	public static int[] parent;
+	public static int cnt;
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
@@ -17,6 +18,7 @@ public class Main {
 			if(N==0) {
 				break;
 			}
+			cnt = N;
 			++tc;
 			Map<String, Integer> name = new HashMap<>();
 			parent = new int[N]; //부모
@@ -38,12 +40,6 @@ public class Main {
 				union(i, name.get(uni[i]));
 			}
 			
-			int cnt = 0;
-			for(int i=0; i<N; i++) {
-				if(parent[i]<0) {
-					cnt++;
-				}
-			}
 			sb.append(tc + " " + cnt + "\n");
 			
 		}
@@ -58,6 +54,7 @@ public class Main {
 		if(aParent != bParent) {
 			parent[aParent] += parent[bParent];
 			parent[bParent] = aParent;
+			cnt--;
 		}
 	}
 	
