@@ -66,10 +66,10 @@ public class Main {
 		//v1->v2가는 최소거리
 		while (!pq.isEmpty()) {
 			Node cur = pq.poll();
+			visit[cur.v] = true;
 			for (Node o : adjList[cur.v]) {
-				if (dist[o.v] > dist[cur.v] + o.w) {
+				if (!visit[o.v] && dist[o.v] > dist[cur.v] + o.w) {
 					dist[o.v] = dist[cur.v] + o.w;
-					visit[o.v] = true;
 					pq.add(new Node(o.v, dist[o.v]));
 				}
 
@@ -94,13 +94,12 @@ public class Main {
 		pq = new PriorityQueue<>();
 		pq.add(new Node(1, dist[1]));
 		visit = new boolean[V + 1];
-		visit[1] = true;
 		while (!pq.isEmpty()) {
 			Node cur = pq.poll();
+			visit[cur.v] = true;
 			for (Node o : adjList[cur.v]) {
-				if (dist[o.v] > dist[cur.v] + o.w) {
+				if (!visit[o.v] && dist[o.v] > dist[cur.v] + o.w) {
 					dist[o.v] = dist[cur.v] + o.w;
-					visit[o.v] = true;
 					pq.add(new Node(o.v, dist[o.v]));
 				}
 
@@ -127,13 +126,12 @@ public class Main {
 		pq = new PriorityQueue<>();
 		pq.add(new Node(V, dist[V]));
 		visit = new boolean[V + 1];
-		visit[1] = true;
 		while (!pq.isEmpty()) {
 			Node cur = pq.poll();
+			visit[cur.v] = true;
 			for (Node o : adjList[cur.v]) {
-				if (dist[o.v] > dist[cur.v] + o.w) {
+				if (!visit[o.v] && dist[o.v] > dist[cur.v] + o.w) {
 					dist[o.v] = dist[cur.v] + o.w;
-					visit[o.v] = true;
 					pq.add(new Node(o.v, dist[o.v]));
 				}
 
