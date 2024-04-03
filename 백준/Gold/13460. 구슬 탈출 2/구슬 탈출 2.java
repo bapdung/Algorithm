@@ -40,12 +40,16 @@ public class Main {
         System.out.println(temp);
     }
     public static int bfs() {
+//    	System.out.println("hole : " + hole.r + " " + hole.c);
         Queue<RedBlue> q = new ArrayDeque<>();
+        boolean[][][][] visit = new boolean[R][C][R][C];
+        visit[red.r][red.c][blue.r][blue.c] = true;
         q.add(new RedBlue(red, blue));
         int cnt = 0;
         while(!q.isEmpty()) {
             if(cnt++==10) break;
             int size = q.size();
+//            System.out.println(q);
             while(size-->0) {
                 RedBlue rb = q.poll();
                 Position curRed = rb.red;
@@ -82,8 +86,12 @@ public class Main {
                 			red.r = red.r + 1;
                 		}
                 	}
+//                	if(d==3 && !flagR && flagB) {
+//                		System.out.println(red.r + " " + red.c + " " + blue.r + " " + blue.c);
+//                	}
                     //빨간구슬 안빠지고 파란구슬도 안 빠졌을때
-                    if(!flagR && !flagB) {
+                    if(!flagR && !flagB && !visit[red.r][red.c][blue.r][blue.c]) {
+                    	visit[red.r][red.c][blue.r][blue.c] = true;
                     	q.offer(new RedBlue(red, blue));
                     } 
                     //빨간구슬 빠지고 파란구슬 안 빠졌을 때
@@ -128,6 +136,12 @@ public class Main {
             this.red = red;
             this.blue = blue;
         }
+		@Override
+		public String toString() {
+			return "RedBlue [red=" + red.r + " "+red.c + ", blue=" + blue.r + " " + blue.c + "]";
+		}
+        
+        
     }
     public static class Position{
         int r;
@@ -137,5 +151,6 @@ public class Main {
             this.r = r;
             this.c = c;
         }
+        
     }
 }
