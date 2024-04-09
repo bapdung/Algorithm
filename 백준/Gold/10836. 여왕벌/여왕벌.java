@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 
 public class Main {
 	public static int N, M;
-	public static int[][] arr, grow;
+	public static int[][] arr;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
@@ -19,36 +19,39 @@ public class Main {
 			}
 		}
 		
-		grow = new int[M][N*2-1];
 		
-		for(int i=0; i<M; i++) {
-			int cnt = 0;
-//			System.out.println("===");
-			st = new StringTokenizer(br.readLine());
-			for(int j=0; j<=2; j++) {
-				int n = Integer.parseInt(st.nextToken());
-				while(n-->0) {
-					if(cnt<=N-1) {
-						arr[N-1-cnt][0] += j;
-//						System.out.println(N-1-cnt + " " + 0);
-//						System.out.println(arr[N-1-cnt][0] );
-					} else {
-						arr[0][(cnt%N)+1] += j;
-//						System.out.println(0 + " " + (cnt%N+1));
-//						System.out.println(arr[0][(cnt%N)] );
-					}
-					cnt++;
+		for(int n = 0; n < M; n++) {
+			st = new StringTokenizer(br.readLine(), " "); 
+			int zero = Integer.parseInt(st.nextToken()); 
+			int one = Integer.parseInt(st.nextToken()); 
+			int two = Integer.parseInt(st.nextToken()); 
+
+			// 제일 왼쪽 열 애벌레 키우기 
+			for(int i = N-1; i > 0; i--) { 
+				if(zero != 0) {
+					zero--;
+				} else if(one != 0) {
+					one--;
+					arr[i][0] += 1;
+				} else if(two != 0) {
+					two--;
+					arr[i][0] += 2;
 				}
 			}
-//			for(int r=0; r<N; r++) {
-//				for(int c=0; c<N; c++) {
-//					System.out.print(arr[r][c] + " ");
-//				}
-//				System.out.println();
-//			}
-			
+
+			// 제일 위쪽 행 애벌레 키우기 
+			for(int i = 0; i < N; i++) {
+				if(zero != 0) {
+					zero--;
+				} else if(one != 0) {
+					one--;
+					arr[0][i] += 1;
+				} else if(two != 0) {
+					two--;
+					arr[0][i] += 2;
+				}
+			}
 		}
-//		System.out.println();
 		
 		for(int r=1; r<N; r++) {
 			for(int c=1; c<N; c++) {
