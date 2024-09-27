@@ -37,7 +37,7 @@ class Solution {
     public static void 금액계산(){
         // System.out.println(Arrays.toString(isSelected));
         for(int i = 0; i < emoziCnt; i++){
-            discountEmozi[i] = (int) ((100 - isSelected[i]) * emozi[i]) / 100;
+            discountEmozi[i] = (int) ((100 - (isSelected[i]* 1)) * (double) emozi[i]) / 100;
         }
         // System.out.println(Arrays.toString(discountEmozi));
         
